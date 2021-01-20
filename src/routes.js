@@ -9,8 +9,8 @@ const routes = new Router();
 
 routes.use(logRequestsMiddleware);
 
-routes.get('/showCharacters/:offset', CharacterController.index);
-routes.get('/searchByName/:name', CharacterController.show);
+routes.get('/characters', CharacterController.index);
+routes.get('/charactersName', CharacterController.show);
 
 routes.get('/logs', LogController.index);
 

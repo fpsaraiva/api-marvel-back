@@ -1,35 +1,40 @@
 import apiMarvel from '../services/apiMarvel';
-
-const auth_query =
-  'ts=<timestamp>&apikey=<public_key>&hash=<md5_generated>';
+import buildMarvelApiRoute from '../utils/index';
 
 class CharacterController {
   async index(request, response) {
     try {
-      const { offset } = request.params;
+      const { offset } = request.query;
+      const queries = {
+        limit: 100,
+        offset,
+      };
 
-      const charactersData = await apiMarvel.get(
-        `/v1/public/characters?${auth_query}&limit=100&offset=${offset}`
-      );
+      const url = buildMarvelApiRoute('/characters', queries);
+
+      const { data } = await apiMarvel.get(url);
 
       return response.json({
-        characters: charactersData.data.data.results,
-        total: charactersData.data.data.total,
+        characters: data.data.results,
+        total: data.data.total,
       });
     } catch (error) {
-      return response.status(error.status || 400).json(error);
+      return response.status(error.status || 400).json(error.message);
     }
   }
 
   async show(request, response) {
     try {
-      const { name } = request.params;
+      const { nameStartsWith } = request.query;
+      const queries = {
+        nameStartsWith,
+      };
 
-      const searchedCharacter = await apiMarvel.get(
-        `/v1/public/characters?name=${name}&${auth_query}`
-      );
+      const url = buildMarvelApiRoute('/characters', queries);
 
-      return response.json(searchedCharacter.data.data.results);
+      const { data } = await apiMarvel.get(url);
+
+      return response.json(data.data.results);
     } catch (error) {
       return response.status(error.status || 400).json(error);
     }
