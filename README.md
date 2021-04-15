@@ -30,5 +30,5 @@ yarn
 yarn dev
 ```
 - A API da Marvel requer autenticação. Para saber quais informações são necessárias,
-o [vídeo](https://www.youtube.com/watch?v=kHjnnEBVgw4&t=334s&ab_channel=SouProgramador)
+o [vídeo](https://www.youtube.com/watch?v=kHjnnEBVgw4)
 do canal **Sou Programador**.
